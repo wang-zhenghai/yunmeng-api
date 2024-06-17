@@ -1,0 +1,26 @@
+# 线上配置文件
+
+server:
+  port: 8101
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://xxx:3689/oneapi
+    username: xxx
+    password: xxx
+
+
+mybatis-plus:
+  configuration:
+    # 生产环境关闭日志
+    log-impl: ''
+
+dubbo:
+  application:
+    name: dubbo-provider
+  protocol:
+    name: dubbo
+    port: -1
+  registry:
+    address: nacos://127.0.0.1:8848

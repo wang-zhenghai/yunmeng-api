@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.charjin.oneapi.backend.mapper.UserInterfaceInfoMapper">
+
+    <resultMap id="BaseResultMap" type="top.charjin.oneapi.common.model.entity.UserInterfaceInfo">
+        <id property="id" column="id" jdbcType="BIGINT"/>
+        <result property="userId" column="userId" jdbcType="BIGINT"/>
+        <result property="interfaceInfoId" column="interfaceInfoId" jdbcType="BIGINT"/>
+        <result property="totalNum" column="totalNum" jdbcType="INTEGER"/>
+        <result property="leftNum" column="leftNum" jdbcType="INTEGER"/>
+        <result property="status" column="status" jdbcType="INTEGER"/>
+        <result property="createTime" column="createTime" jdbcType="TIMESTAMP"/>
+        <result property="updateTime" column="updateTime" jdbcType="TIMESTAMP"/>
+        <result property="isDelete" column="isDelete" jdbcType="TINYINT"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,userId,interfaceInfoId,
+        totalNum,leftNum,status,
+        createTime,updateTime,idDelete
+    </sql>
+    <select id="selectInterfaceInvokeInfoVoList"
+            resultType="top.charjin.oneapi.common.model.vo.InterfaceInvokeInfoVo">
+        select t1.id                    as id,
+               name,
+               ifnull(sum(totalNum), 0) as totalNum
+        from interface_info t1
+                 left join user_interface_info t2
+                           on t1.id = t2.interfaceInfoId
+        where t1.isDelete = 0
+        group by t1.id
+    </select>
+</mapper>
